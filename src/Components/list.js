@@ -11,11 +11,9 @@ import { useParams } from 'react-router-dom';
 const List = () => {
     const [products, setProducts] = useState([]);
     var [pageStart, setPageStart] = useState(1);
-    const page_size = 10;
-    const page_number= 1;
     useEffect(() => {
         axios
-            .get(`https://staging.algym.com/api/v1/gyms?lat=31.2475504&long=29.963676&page_number=${page_number}&page_size=${page_size}&search_diameter=1000`,
+            .get(`https://staging.algym.com/api/v1/gyms?lat=31.2475504&long=29.963676&page_number=${pageStart}&page_size=10&search_diameter=1000`,
             {params:{page:pageStart}})
             // .get("https://fakestoreapi.com/products")
             .then((res) => {
@@ -30,25 +28,25 @@ const List = () => {
 
     function prev() {
         if (pageStart > 1) {
-            setPageStart(--pageStart)
+            setPageStart(--pageStart);
+
         }
     }
     function next() {
         setPageStart(++pageStart);
-        setPageStart(++page_number);
 
     }
     return (
         <>
             <button className="btn btn-group bg-warning text-dark  " onClick={(
-                
+
             ) => prev()} >Previous</button>
 
             <button className="btn btn-group bg-success text-light" onClick={() => next()} >Next</button>
             <p>Page Number: {pageStart}</p>
             
             
-            <div className="grid-list shadow p-2">
+            <div className="grid-list shadow p-2 m-2">
                 {products.map((gym) => {
                     return (
 
@@ -62,26 +60,11 @@ const List = () => {
                             </Card.Body>
                         </Card>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
                     )
                 })}
             </div>
 
         </>
-
-
 
 
     );
